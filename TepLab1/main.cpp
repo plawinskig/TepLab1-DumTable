@@ -17,7 +17,7 @@ int main()
 
     int size_x = 5;
     int size_y = 3;
-    int **table = nullptr;
+    int **table = NULL;
 
     bool is_alloc_successful = alloc_table_2_dim(&table, size_x, size_y);
 
@@ -48,36 +48,36 @@ int main()
     // z4
     std::cout << "\n> create default table\n";
     Table default_table;
-    default_table.print();
+    print_table(default_table);
 
     std::cout << "\n> create static table\n";
 	Table static_table("The_static_table", 5);
-	static_table.print();
+    print_table(static_table);
     
     std::cout << "\n> try mod static table\n";
 	mod_tab(static_table, 7);
-	static_table.print();
+    print_table(static_table);
 
     std::cout << "\n> try mod static table\n";
 	mod_tab(static_table, 3);
-	static_table.print();
+    print_table(static_table);
 
     std::cout << "\n> create clone\n";
 	Table *dynamic_table = static_table.clone();
-    static_table.print();
-	dynamic_table->print();
+    print_table(static_table);
+    print_table(*dynamic_table);
 
     std::cout << "\n> set new name for clone\n";
     dynamic_table->set_name("The_dynamic_table");
-    dynamic_table->print();
+    print_table(*dynamic_table);
 
     std::cout << "\n> mod dynamic table\n";
     mod_tab(dynamic_table, 7);
-    dynamic_table->print();
+    print_table(*dynamic_table);
 
     std::cout << "\n> mod dynamic table\n";
     mod_tab(dynamic_table, 3);
-    dynamic_table->print();
+    print_table(*dynamic_table);
 
     std::cout << "\n> delete dynamic table\n";
     delete dynamic_table;
@@ -92,4 +92,18 @@ int main()
     delete[] array_of_tables;
 
     std::cout << "\n> test_table END\n";
+
+    std::cout << "\n> test_modification\n";
+    Table orig("orig", 5), *copy;
+    orig.set_elem(1, 0);
+    orig.set_elem(2, 1);
+    orig.set_elem(3, 2);
+    orig.set_elem(4, 3);
+    orig.set_elem(5, 4);
+    print_table(orig);
+
+    copy = orig.get_reverted();
+    print_table(*copy);
+    delete copy;
+
 }// int main()

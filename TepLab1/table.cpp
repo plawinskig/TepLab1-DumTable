@@ -15,6 +15,11 @@ Table::Table(std::string name, int table_len)
 	name_ = name;
 	std::cout << "parameter: " << name_ << "\n";
 
+	if (table_len <= 0)
+	{
+		table_len = DEFAULT_TABLE_LEN;
+	}
+
 	table_len_ = table_len;
 	table_ = new int[table_len_];
 }// Table::Table(std::string name, int table_len)
@@ -73,18 +78,50 @@ Table *Table::clone()
 	Table *table_clone = new Table(*this);
 	table_clone->set_name(name_);
 	return table_clone;
-}
+}// Table *Table::clone()
 
-void Table::print()
+Table *Table::get_reverted()
 {
-	std::cout << name_ << ": ";
+	Table *new_table = new Table(name_ + COPY_SUFFIX, table_len_);
+
 	for (int i = 0; i < table_len_; i++)
 	{
-		std::cout << table_[i] << SEPARATOR;
+		new_table->set_elem(table_[table_len_ - i - 1], i);
 	}
 
-	std::cout << "\n";
-}// Table *Table::clone()
+	return new_table;
+}// Table *Table::get_reverted()
+
+bool Table::set_elem(int value, int index)
+{
+	if (index < 0 || index >= table_len_)
+	{
+		return false;
+	}
+
+	table_[index] = value;
+
+	return true;
+}// int Table::set_elem(int value, int index)
+
+int Table::get_elem(int index)
+{
+	if (index < 0 || index >= table_len_)
+	{
+		return 0;
+	}
+	return table_[index];
+}// int Table::get_elem(int index)
+
+int Table::get_len()
+{
+	return table_len_;
+}// int Table::get_len()
+
+std::string Table::get_name()
+{
+	return name_;
+}// int Table::get_name()
 
 void mod_tab(Table *tab, int new_size)
 {

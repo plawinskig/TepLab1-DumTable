@@ -53,7 +53,7 @@ bool dealloc_table_2_dim(int ***table, int size_x)
 	}
 
 	delete[] *table;
-	table = nullptr;
+	table = NULL;
 
 	return true;
 }// bool dealloc_table_2_dim(int ***table, int size_x)

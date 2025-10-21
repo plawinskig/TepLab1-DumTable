@@ -28,3 +28,14 @@ void print_table(int **table, int size_x, int size_y)
 		std::cout << "\n";
 	}
 }
+
+void print_table(Table &table)
+{
+	std::cout << table.get_name() << ": ";
+	for (int i = 0; i < table.get_len(); i++)
+	{
+		std::cout << table.get_elem(i) << SEPARATOR;
+	}
+
+	std::cout << "\n";
+}
